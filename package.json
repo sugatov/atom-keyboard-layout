@@ -1,0 +1,18 @@
+{
+  "name": "keyboard-layout",
+  "main": "./lib/keyboard-layout",
+  "version": "0.1.0",
+  "description": "Custom keyboard layout switch for Atom",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "keyboard-layout:toggle"
+  },
+  "repository": "https://github.com/sugatov/atom-keyboard-layout",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
