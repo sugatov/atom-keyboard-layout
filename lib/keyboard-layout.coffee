@@ -5,6 +5,7 @@ module.exports = KeyboardLayout =
   temporalSubscriptions: null
   active: false
   layout: {}
+  lastSequence: null
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
@@ -21,6 +22,17 @@ module.exports = KeyboardLayout =
       "8": "*"
       "9": "("
       "0": ")"
+      "!": "1"
+      "@": "2"
+      "#": "3"
+      "$": "4"
+      "%": "5"
+      "^": "6"
+      "&": "7"
+      "*": "8"
+      "(": "9"
+      ")": "0"
+
 
   deactivate: ->
     @temporalSubscriptions.dispose() if @temporalSubscriptions
@@ -33,9 +45,14 @@ module.exports = KeyboardLayout =
       @temporalSubscriptions.add atom.workspace.observeTextEditors (editor) =>
         @temporalSubscriptions.add editor.onWillInsertText (event) =>
           key = event.text
-          if @layout.hasOwnProperty(key)
+          if key != @lastSequence and @layout.hasOwnProperty(key)
+            sequence = @layout[key]
+            @lastSequence = sequence
             event.cancel()
-            editor.insertText @layout[key]
+            editor.insertText sequence
+          else
+            @lastSequence = null
+
       @active = true
       atom.notifications.addSuccess "Keyboard layout is active"
     else
